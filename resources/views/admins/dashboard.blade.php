@@ -18,7 +18,7 @@
                 <tr>
                     <th scope="row">{{$category->id}}</th>
                     <td><a href="/categories/{{$category->id}}">{{$category->category_name}}</a></td>
-                    <td><a href="" class="btn btn-warning">Edit</a></td>
+                    <td><a href="/categories/{{$category->id}}/edit" class="btn btn-warning">Edit</a></td>
                     <td>
                         {!! Form::open(['action' => ['CategoriesController@destroy', $category->id], 'method' => 'POST']) !!}
                         {!! Form::hidden('_method','DELETE') !!}

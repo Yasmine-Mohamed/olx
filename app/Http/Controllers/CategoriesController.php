@@ -35,16 +35,9 @@ class CategoriesController extends Controller
      */
     public function create()
     {
-        $categories = Category::all();
+        $allCategories = Category::pluck('category_name','id')->toArray();
 
-        $select = [];
-
-        foreach($categories as $category)
-        {
-            $select[$category->id] = $category->category_name;
-        }
-
-        return view('categories.create',compact('select'));
+        return view('categories.create',compact('allCategories'));
     }
 
     /**
@@ -70,6 +63,8 @@ class CategoriesController extends Controller
             return redirect('/admin');
         }
 
+        // Adding new category
+
         else {
 
             $cat = new Category();
@@ -90,7 +85,12 @@ class CategoriesController extends Controller
      */
     public function show($id)
     {
-        return view('categories.show',compact('id'));
+        $category = Category::find($id);
+
+        $subCategories = $category->subCategories;
+
+//        dd($subCategories);
+        return view('categories.show', compact('subCategories'));
     }
 
     /**
@@ -101,7 +101,9 @@ class CategoriesController extends Controller
      */
     public function edit($id)
     {
-        //
+        $category = Category::find($id);
+
+        return view('categories.edit', compact('category'));
     }
 
     /**
@@ -113,7 +115,17 @@ class CategoriesController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $this->validate($request, [
+            'category_name' => 'required',
+        ]);
+
+        $category = Category::find($id);
+
+        $category->category_name = $request->input('category_name');
+
+        $category->save();
+
+        return redirect('/admin');
     }
 
     /**
@@ -128,6 +140,6 @@ class CategoriesController extends Controller
 
         $category->delete();
 
-        return redirect('/admin');
+        return redirect()->back();
     }
 }

@@ -10,12 +10,13 @@
 
     <div class="form-group">
         {!! Form::label('categories','Choose Parent Category') !!}
-        {!! Form::select('parent_cat', ([null => 'Select Category'] + $select) , null, ['class' => 'form-control']) !!}
+        {!! Form::select('parent_cat', ([null => 'Select Category'] + $allCategories) , null, ['class' => 'form-control']) !!}
     </div>
 
     {!! Form::submit('Add', ['class' => 'btn btn-dark']) !!}
 
-
     {!! Form::close() !!}
+    <a href="/admin" class="btn btn-dark">Back</a>
+
 
 @endsection
