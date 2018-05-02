@@ -22,4 +22,12 @@ class SubCategory extends Model
     {
         return $this->belongsTo(Category::class);
     }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function brands()
+    {
+        return $this->belongsToMany(Brand::class);
+    }
 }

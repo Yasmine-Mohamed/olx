@@ -3,10 +3,21 @@
 namespace App\Http\Controllers;
 
 use App\SubCategory;
+use App\Brand;
 use Illuminate\Http\Request;
 
 class SubCategoriesController extends Controller
 {
+
+    /**
+     * CategoriesController constructor.
+     */
+    public function __construct()
+    {
+        return $this->middleware('auth:admin');
+    }
+
+
     /**
      * Display a listing of the resource.
      *
@@ -35,7 +46,7 @@ class SubCategoriesController extends Controller
      */
     public function store(Request $request)
     {
-        //
+       //
     }
 
     /**
@@ -46,7 +57,9 @@ class SubCategoriesController extends Controller
      */
     public function show($id)
     {
-        //
+        $sub_category = SubCategory::find($id);
+
+        return view('subCategories.show', compact('sub_category'));
     }
 
     /**
@@ -57,7 +70,11 @@ class SubCategoriesController extends Controller
      */
     public function edit($id)
     {
-        //
+        $sub_category = SubCategory::find($id);
+
+        $brands = Brand::pluck('brand_name','id');
+
+        return view('subCategories.edit', compact('sub_category','brands'));
     }
 
     /**
@@ -69,7 +86,23 @@ class SubCategoriesController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $this->validate($request, [
+            'sub_cat_name' => 'required',
+        ]);
+
+        $sub_category = SubCategory::find($id);
+
+//        $sub_category->sub_cat_name = $request->input('sub_cat_name');
+//
+//        $sub_category->save();
+
+        $sub_category->update($request->all());
+
+        $sub_category->brands()->sync($request->input('brand_lis'));
+
+
+
+        return redirect('subcategories/'.$id);
     }
 
     /**
@@ -80,9 +113,11 @@ class SubCategoriesController extends Controller
      */
     public function destroy($id)
     {
-        $subCategory = SubCategory::find($id);
+        $sub_category = SubCategory::find($id);
 
-        $subCategory->delete();
+        $sub_category->brands()->detach();
+
+        $sub_category->delete();
 
         return redirect()->back();
     }

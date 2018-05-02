@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-    <h1>Edit Category</h1>
+    <h1>{{$category->category_name}}</h1>
     {!! Form::model($category, ['method' => 'PATCH', 'action' => ['CategoriesController@update', $category->id ]]) !!}
     <div class="form-group">
         {!! Form::label('cat_name','Category Name:') !!}

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Category;
 use App\SubCategory;
+use App\Brand;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
 
@@ -37,7 +38,9 @@ class CategoriesController extends Controller
     {
         $allCategories = Category::pluck('category_name','id')->toArray();
 
-        return view('categories.create',compact('allCategories'));
+        $brands = Brand::pluck('brand_name','id');
+
+        return view('categories.create',compact('allCategories','brands'));
     }
 
     /**
@@ -50,6 +53,8 @@ class CategoriesController extends Controller
     {
         //check if subCategories belongs to parent category
 
+        // create sub category and attach there own brands
+
         if ($request->input('parent_cat') != null) {
 
             $subCat = new SubCategory();
@@ -59,6 +64,9 @@ class CategoriesController extends Controller
             $subCat->category_id = $request->input('parent_cat');
 
             $subCat->save();
+
+            $subCat->brands()->attach($request->input('brand_list'));
+
 
             return redirect('/admin');
         }
@@ -87,10 +95,7 @@ class CategoriesController extends Controller
     {
         $category = Category::find($id);
 
-        $subCategories = $category->subCategories;
-
-//        dd($subCategories);
-        return view('categories.show', compact('subCategories'));
+        return view('categories.show', compact('category'));
     }
 
     /**
