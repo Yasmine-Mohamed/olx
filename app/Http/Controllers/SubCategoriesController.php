@@ -86,21 +86,16 @@ class SubCategoriesController extends Controller
      */
     public function update(Request $request, $id)
     {
+//        dd($request->input('brand_list'));
         $this->validate($request, [
             'sub_cat_name' => 'required',
         ]);
 
         $sub_category = SubCategory::find($id);
 
-//        $sub_category->sub_cat_name = $request->input('sub_cat_name');
-//
-//        $sub_category->save();
-
         $sub_category->update($request->all());
 
-        $sub_category->brands()->sync($request->input('brand_lis'));
-
-
+        $sub_category->brands()->sync($request->input('brand_list'), false);
 
         return redirect('subcategories/'.$id);
     }

@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Category extends Model
+class Brand extends Model
 {
     /**
      * The attributes that are mass assignable.
@@ -12,15 +12,15 @@ class Category extends Model
      * @var array
      */
     protected $fillable = [
-        'category_name',
+        'brand_name',
     ];
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
     public function subCategories()
     {
-        return $this->hasMany(SubCategory::class);
+        return $this->belongsToMany(SubCategory::class,'brand_sub_category');
     }
 
     /**

@@ -23,7 +23,7 @@
                             @if(Auth::guard('admin')->check())
                                 <a class="dropdown-item" href="/admin">Dashboard</a>
                             @else
-                                <a class="dropdown-item" href="">Add Product</a>
+                                <a class="dropdown-item" href="/products/create">Add Product</a>
                             @endif
                             <a class="dropdown-item" href="{{ route('logout') }}"
                                onclick="event.preventDefault();

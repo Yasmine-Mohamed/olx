@@ -21,7 +21,6 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-    <link href="/css/select2.min.css" rel="stylesheet" />
 
 </head>
 <body>
@@ -31,9 +30,6 @@
         <div class="container">
             @yield('content')
         </div>
-
-
-        @yield('footer')
     </div>
 </body>
 </html>

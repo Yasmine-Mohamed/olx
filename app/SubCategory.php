@@ -28,6 +28,14 @@ class SubCategory extends Model
      */
     public function brands()
     {
-        return $this->belongsToMany(Brand::class);
+        return $this->belongsToMany(Brand::class,'brand_sub_category');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function product()
+    {
+        return $this->belongsTo(Product::class);
     }
 }

@@ -37,7 +37,7 @@ Route::prefix('admin')->group(function() {
 });
 
 Route::resource('categories','CategoriesController');
-Route::get('/subcategories/{subcategory_id}/create','SubCategoriesController@create');
 Route::resource('subcategories','SubCategoriesController');
+Route::resource('products','ProductsController');
 
 

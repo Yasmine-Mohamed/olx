@@ -13,6 +13,7 @@
 
     {!! Form::close() !!}
 
+    <hr>
     <a href="/admin" class="btn btn-dark">Back</a>
 
 @endsection

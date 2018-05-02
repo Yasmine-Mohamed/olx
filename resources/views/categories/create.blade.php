@@ -15,22 +15,12 @@
 
     <div class="form-group">
         {!! Form::label('brand_list','Tags:') !!}
-        {!! Form::select('brand_list[]',$brands , null , ['id' => 'brand_list' , 'class' => 'form-control' , 'multiple']) !!}
+        {!! Form::select('brand_list[]',$brands , null , ['class' => 'form-control' , 'multiple' => 'multiple']) !!}
     </div>
 
     {!! Form::submit('Add', ['class' => 'btn btn-dark']) !!}
 
     {!! Form::close() !!}
+    <hr>
     <a href="/admin" class="btn btn-dark">Back</a>
-@endsection
-
-@section('footer')
-
-<script>
-    $('#brand_list').select2({
-        placeholder: 'Choose a brand'
-    });
-</script>
-<script src="/js/jquery.min.js"></script>
-<script src="/js/select2.min.js"></script>
 @endsection
